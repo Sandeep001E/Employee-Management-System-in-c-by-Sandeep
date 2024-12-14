@@ -1,0 +1,940 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <conio.h>
+
+int p = 0, z = 0;
+
+void admin();
+void manager();
+void employee();
+void ainterface();
+void minterface();
+void einterface();
+void A_D_admin();
+void A_D_manager();
+void A_D_employee();
+void admin_list();
+void manager_list();
+void employee_list();
+void main()
+{
+    int c;
+    char w;
+menu:
+    clrscr();
+    printf("\t\t********MENU********\n");
+    printf("\t\t1.ADMIN\n\t\t2.MANAGER\n\t\t3.EMPLOYEE\n");
+    printf("\t\tEnter your choice: ");
+    scanf("%d", &c);
+    switch (c)
+    {
+    case 1:
+        admin();
+        break;
+    case 2:
+        manager();
+        break;
+    case 3:
+        employee();
+        break;
+    default:
+        scanf("%c", &w);
+        printf("\t\tinvalid character\n\n ");
+        printf("\t\tpress enter for 'try again' ");
+        scanf("%c", &w);
+        goto menu;
+    }
+}
+
+void admin()
+{
+    FILE *admin_p;
+    int i, c = 0, k = 1, n;
+    char pw[6], pwi[6], id[6], ch[6], w;
+    admin_p = fopen("/storage/emulated/0/EMS/admin.txt", "r");
+    clrscr();
+    if (admin_p == NULL)
+    {
+        scanf("%c", &w);
+        printf("\t\tAdmin list not found");
+        scanf("%c", &w);
+        main();
+    }
+    else
+    {
+    admin:
+        clrscr();
+        printf("\t\t   ADMIN LOGIN\n\n");
+        printf("\t\tEnter  admin id :  ");
+        scanf("%s", id);
+        printf("\n");
+        bool read_file = true;
+        int c, line = 1;
+        do
+        {
+            fgets(ch, 6, admin_p);
+            if (feof(admin_p))
+            {
+                read_file = false;
+            }
+            else
+            {
+                c = 0;
+                for (i = 0; i < 5; i++)
+                {
+                    if (ch[i] == id[i])
+                    {
+                        c++;
+                    }
+                }
+            }
+            if (line % 3 == 0)
+            {
+                k++;
+            }
+            if (c == 5)
+            {
+                break;
+            }
+            line++;
+        } while (read_file);
+        rewind(admin_p);
+        if (c == 5)
+        {
+        pws:
+            printf("\t\tEnter password [5 char] :  ");
+            {
+                scanf("%s", pw);
+            }
+            bool read_file = true;
+            line = 1;
+            do
+            {
+                fgets(ch, 6, admin_p);
+                if (feof(admin_p))
+                {
+                    read_file = false;
+                }
+                else
+                {
+                    c = 0;
+                    for (i = 0; i < 5; i++)
+                    {
+                        if (ch[i] == id[i])
+                        {
+                            c++;
+                        }
+                    }
+                }
+                if (c == 5)
+                {
+                    fgets(pwi, 6, admin_p);
+                }
+            } while (read_file);
+            if (strcmp(pw, pwi) == 0)
+            {
+                scanf("%c", &w);
+                printf("\n\t\tLogin successfull\n\n");
+                printf("\t\tpress enter for admin interface");
+                scanf("%c", &w);
+                ainterface();
+            }
+            else
+            {
+                printf("\t\tIncorrect Password\n\n");
+                goto pws;
+            }
+        }
+        else
+        {
+            scanf("%c", &w);
+            printf("\t\tadmin not found\n\n");
+            printf("\t\tpress enter for 'try again' ");
+            scanf("%c", &w);
+            goto admin;
+        }
+    }
+  fclose(admin_p);
+}
+
+void manager()
+{
+    FILE *manager_p;
+    int i, c = 0;
+    char pw[6], pwi[6], id[6], ch[6], w;
+    manager_p = fopen("/storage/emulated/0/EMS/manager.txt", "r");
+    system("cls");
+    if (manager_p == NULL)
+    {
+        printf("\t\tmanager list not found");
+    }
+    else
+    {
+    manager:
+        system("cls");
+        printf("\t\t  MANAGER  LOGIN\n\n");
+        printf("\t\tEnter  manager id :  ");
+
+        scanf("%s", id);
+
+        printf("\n");
+        bool read_file = true;
+        int c, line = 1;
+        do
+        {
+            fgets(ch, 6, manager_p);
+            if (feof(manager_p))
+            {
+                read_file = false;
+            }
+            else
+            {
+                c = 0;
+                for (i = 0; i < 5; i++)
+                {
+                    if (ch[i] == id[i])
+                    {
+                        c++;
+                    }
+                }
+            }
+            if (line % 3 == 0)
+            {
+                int k;
+                k++;
+            }
+            if (c == 5)
+            {
+                break;
+            }
+            line++;
+        } while (read_file);
+        rewind(manager_p);
+        if (c == 5)
+        {
+        pws:
+            printf("\t\tEnter password [5 char] :  ");
+            {
+                scanf("%s", pw);
+            }
+            bool read_file = true;
+            line = 1;
+            do
+            {
+                fgets(ch, 6, manager_p);
+                if (feof(manager_p))
+                {
+                    read_file = false;
+                }
+                else
+                {
+                    c = 0;
+                    for (i = 0; i < 5; i++)
+                    {
+                        if (ch[i] == id[i])
+                        {
+                            c++;
+                        }
+                    }
+                }
+                if (c == 5)
+                {
+                    fgets(pwi, 6, manager_p);
+                }
+            } while (read_file);
+            if (strcmp(pw, pwi) == 0)
+            {
+                scanf("%c", &w);
+                printf("\n\t\tLogin successfull\n\n");
+                printf("\t\tpress enter for manager interfacr");
+                scanf("%c", &w);
+                minterface();
+            }
+            else
+            {
+                printf("\t\tIncorrect Password\n\n");
+                goto pws;
+            }
+        }
+        else
+        {
+            scanf("%c", &w);
+            printf("\t\tmanager not found\n\n");
+            printf("\t\tpress enter for 'try again' ");
+            scanf("%c", &w);
+            goto manager;
+        }
+    }
+    fclose(manager_p);
+}
+
+void employee()
+{
+    FILE *employee_p;
+    int i, c = 0;
+    char pw[6], pwi[6], id[6], ch[6], w;
+    employee_p = fopen("/storage/emulated/0/EMS/employee.txt", "r");
+    system("cls");
+    if (employee_p == NULL)
+    {
+        printf("\t\temployee list not found");
+    }
+    else
+    {
+    employee:
+        system("cls");
+        printf("\t\t  EMPLOYEE  LOGIN\n\n");
+        printf("\t\tEnter  employer id :  ");
+
+        scanf("%s", id);
+
+        printf("\n");
+        bool read_file = true;
+        int c, line = 1;
+        do
+        {
+            fgets(ch, 6, employee_p);
+            if (feof(employee_p))
+            {
+                read_file = false;
+            }
+            else
+            {
+                c = 0;
+                for (i = 0; i < 5; i++)
+                {
+                    if (ch[i] == id[i])
+                    {
+                        c++;
+                    }
+                }
+            }
+            if (line % 3 == 0)
+            {
+                int k;
+                k++;
+            }
+            if (c == 5)
+            {
+                break;
+            }
+            line++;
+        } while (read_file);
+        rewind(employee_p);
+        if (c == 5)
+        {
+        pws:
+            printf("\t\tEnter password [5 char] :  ");
+            {
+                scanf("%s", pw);
+            }
+            bool read_file = true;
+            line = 1;
+            do
+            {
+                fgets(ch, 6, employee_p);
+                if (feof(employee_p))
+                {
+                    read_file = false;
+                }
+                else
+                {
+                    c = 0;
+                    for (i = 0; i < 5; i++)
+                    {
+                        if (ch[i] == id[i])
+                        {
+                            c++;
+                        }
+                    }
+                }
+                if (c == 5)
+                {
+                    fgets(pwi, 6, employee_p);
+                }
+            } while (read_file);
+            if (strcmp(pw, pwi) == 0)
+            {
+                scanf("%c", &w);
+                printf("\n\t\tLogin successfull\n\n");
+                printf("\t\tpress enter for  employee menu");
+                scanf("%c", &w);
+                einterface();
+            }
+            else
+            {
+                printf("\t\tIncorrect Password\n\n");
+                goto pws;
+            }
+        }
+        else
+        {
+            scanf("%c", &w);
+            printf("\t\temployee not found\n\n");
+            printf("\t\tpress enter for 'try again' ");
+            scanf("%c", &w);
+            goto employee;
+        }
+    }
+    fclose(employee_p);
+}
+
+void ainterface()
+{
+    int c, w;
+ad_admin:
+    clrscr();
+    printf("\t\t***  ADMIN  MENU  ***\n\n");
+    printf("\t\t1.Add or Delete Admin\n");
+    printf("\t\t2.Add or Delete Manager\n");
+    printf("\t\t3.Add or Delete Employee\n");
+    printf("\t\t4.Admin list\n");
+    printf("\t\t5.Manager list\n");
+    printf("\t\t6.Employee list\n");
+    printf("\t\t7.Log out\n\n");
+    printf("\t\tEnter your choice :  ");
+    scanf("%d", &c);
+    switch (c)
+    {
+    case 1:
+        A_D_admin();
+        break;
+    case 2:
+        A_D_manager();
+        break;
+    case 3:
+        p = 1;
+        A_D_employee();
+        break;
+    case 4:
+        admin_list();
+        break;
+    case 5:
+        z = 1;
+        manager_list();
+        break;
+    case 6:
+        z = 1;
+        employee_list();
+        break;
+    case 7:
+        main();
+        break;
+    default:
+        printf("\t\tinvalid character\n\n");
+        printf("\t\tpress 1 for try again");
+        scanf("%d", &w);
+        goto ad_admin;
+    }
+}
+
+void minterface()
+{
+    int c, w;
+ad_manager:
+    clrscr();
+    printf("\t\t***  MANAGER  MENU  ***\n\n");
+    printf("\t\t1.Add or Delete Employee\n");
+    printf("\t\t2.Manager List\n");
+    printf("\t\t3.Employee List\n");
+    printf("\t\t4.Log out\n\n");
+    printf("\t\tenter your choice :  ");
+    scanf("%d", &c);
+    switch (c)
+    {
+    case 1:
+        p = 2;
+        A_D_employee();
+        break;
+    case 2:
+        z = 2;
+        manager_list();
+        break;
+    case 3:
+        z = 2;
+        employee_list();
+        break;
+    case 4:
+        main();
+        break;
+    default:
+        printf("\t\tinvalid character\n");
+        printf("\t\tpress 1 for manager menu");
+        scanf("%d", &w);
+        goto ad_manager;
+    }
+}
+
+void einterface()
+{
+    int c;
+    char w;
+ad_employee:
+    system("cls");
+    printf("\t\t*** EMPLOYEE  MENU ***\n\n");
+    printf("\t\t1.Employee List\n");
+    printf("\t\t2.Log out\n\n");
+    printf("\t\tenter choice :  ");
+    scanf("%d", &c);
+    switch (c)
+    {
+    case 1:
+        z = 3;
+        employee_list();
+        break;
+    case 2:
+        main();
+        break;
+    default:
+        scanf("%c", &w);
+        printf("\t\tinvalid character\n");
+        scanf("%c", &w);
+        goto ad_employee;
+    }
+}
+
+void A_D_admin()
+{
+    FILE *admin_p, *copy;
+    char id[6], pw[6], add[6];
+    int ch, w, i;
+    admin_p = fopen("/storage/emulated/0/EMS/admin.txt", "r+");
+
+    if (admin_p == NULL)
+    {
+        printf("Error opening file.\n");
+        return;
+    }
+
+a1:
+    clrscr();
+    printf("\t\t-------------------------------------\n");
+    printf("\t\t1.Add Admin\n\t\t2.Delete Admin\n\n");
+    printf("\t\tenter your choice: ");
+    scanf("%d", &ch);
+    printf("\n");
+
+    if (ch == 1 || ch == 2)
+    {
+        if (ch == 1)
+        {
+            clrscr();
+            printf("\t\t1. Add Admin\n\n");
+            printf("\t\tCreate admin ID: ");
+            scanf("%s", id);
+            fseek(admin_p, 0, 2); 
+            int i = 0;
+            while (fgets(add, 6, admin_p))
+            {
+                add[strcspn(add, "\n")] = 0;
+                if (strcmp(add, id) == 0)
+                {
+                    i = 1;
+                    break;
+                }
+            }
+
+            if (i == 1)
+            {
+                printf("\t\tAdmin ID already exists\n");
+                printf("\t\tPress any key to try again...\n");
+                scanf("%d", &w);
+                goto a1;
+            }
+            printf("\t\tCreate password: ");
+            scanf("%s", pw);
+            fseek(admin_p, 0, 2);
+            fflush(stdin);
+            fprintf(admin_p, "\n%s", id);
+            fprintf(admin_p, "%s", pw);
+            printf("\n\t\tAdmin added\n\n");
+            printf("\t\tPress 1 for admin menu\n");
+            scanf("%d", &w);
+            ainterface();
+        }
+
+        else if (ch == 2)
+        {
+            printf("\t\t2.Delete admin\n\n");
+            char temp[] = "/storage/emulated/0/EMS/modified.txt", c;
+            copy = fopen(temp, "w");
+            printf("\t\tenter admin id :  ");
+            scanf("%s", id);
+            do
+            {
+                fgets(add, 6, admin_p);
+                if (strcmp(add, id) == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    fputs(add, copy);
+                }
+                if (feof(admin_p))
+                {
+                    break;
+                }
+
+            } while (i == 1);
+            fclose(admin_p);
+            remove("/storage/emulated/0/EMS/admin.txt");
+            rename("/storage/emulated/0/EMS/modified.txt", "/storage/emulated/0/EMS/admin.txt");
+            
+            printf("\n\t\tdeleted successfully\n\n");
+            printf("\t\tpress 1 admin menu");
+            scanf("%d", &w);
+            ainterface();
+        }
+    }
+
+    else
+    {
+        printf("\t\tinvalid character");
+        scanf("%d", &w);
+        goto a1;
+    }
+}
+
+void A_D_manager()
+{
+    FILE *manager_p, *copy;
+    char id[6], pw[6], add[6], pwi[6];
+    int i = 1, ch, w;
+    manager_p = fopen("/storage/emulated/0/EMS/manager.txt", "a+");
+a1:
+
+clrscr();
+    printf("\t\t-------------------------------------\n");
+    printf("\t\t1.Add Admin\n\t\t2.Delete Admin\n\n");
+    printf("\t\tenter your choice: ");
+    scanf("%d", &ch);
+    printf("\n");
+
+    if (ch == 1 || ch == 2)
+    {
+        if (ch == 1)
+        {
+            clrscr();
+            printf("\t\t1. Add Msnager\n\n");
+            printf("\t\tCreate manager ID: ");
+            scanf("%s", id);
+            fseek(manager_p, 0, 2); 
+            int i = 0;
+            while (fgets(add, 6, manager_p))
+            {
+                add[strcspn(add, "\n")] = 0;
+                if (strcmp(add, id) == 0)
+                {
+                    i = 1;
+                    break;
+                }
+            }
+
+            if (i == 1)
+            {
+                printf("\t\tManager ID already exists\n");
+                printf("\t\tPress any key to try again...\n");
+                scanf("%d", &w);
+                goto a1;
+            }
+            printf("\t\tCreate password: ");
+            scanf("%s", pw);
+            fseek(manager_p, 0, 2);
+            fprintf(manager_p, "\n%s", id);
+            fprintf(manager_p, "%s", pw);
+
+            printf("\n\t\tManager added\n\n");
+            printf("\t\tPress 1 for manager menu\n");
+            scanf("%d", &w);
+            ainterface();
+        }
+        else if (ch == 2)
+        {
+            printf("\t\t2.Delete Manager\n\n");
+            char temp[] = "/storage/emulated/0/EMS/modified.txt", c;
+            copy = fopen(temp, "w");
+            printf("\t\tenter manager id :  ");
+            scanf("%s", id);
+            do
+            {
+                fgets(add, 6, manager_p);
+                if (strcmp(add, id) == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    fputs(add, copy);
+                }
+                if (feof(manager_p))
+                {
+                    break;
+                }
+
+            } while (i == 1);
+            fclose(manager_p);
+            remove("/storage/emulated/0/EMS/manager.txt");
+            rename("/storage/emulated/0/EMS/modified.txt", "/storage/emulated/0/EMS/manager.txt");
+            
+            printf("\n\t\tdeleted successfully\n\n");
+            printf("\t\tpress 1 admin menu");
+            scanf("%d", &w);
+            ainterface();
+        }
+    }
+    else
+    {
+        printf("\t\tinvalid character");
+        scanf("%d", &w);
+        goto a1;
+    }
+}
+
+void A_D_employee()
+{
+    FILE *employee_p, *copy;
+    char id[6], pw[6], add[6], pwi[6];
+    int i = 1, ch, w;
+    employee_p = fopen("/storage/emulated/0/EMS/employee.txt", "a+");
+a1:
+
+clrscr();
+    printf("\t\t-------------------------------------\n");
+    printf("\t\t1.Add Employer\n\t\t2.Delete Employee\n\n");
+    printf("\t\tenter your choice: ");
+    scanf("%d", &ch);
+    printf("\n");
+
+    if (ch == 1 || ch == 2)
+    {
+        if (ch == 1)
+        {
+            clrscr();
+            printf("\t\t1. Add Employer\n\n");
+            printf("\t\tCreate Employee ID: ");
+            scanf("%s", id);
+            fseek(employee_p, 0, 2); 
+            int i = 0;
+            while (fgets(add, 6, employee_p))
+            {
+                add[strcspn(add, "\n")] = 0;
+                if (strcmp(add, id) == 0)
+                {
+                    i = 1;
+                    break;
+                }
+            }
+
+            if (i == 1)
+            {
+                printf("\t\tEmployee ID already exists\n");
+                printf("\t\tPress any key to try again...\n");
+                scanf("%d", &w);
+                goto a1;
+            }
+            printf("\t\tCreate password: ");
+            scanf("%s", pw);
+            fseek(employee_p, 0, 2);
+            fprintf(employee_p, "\n%s", id);
+            fprintf(employee_p, "%s", pw);
+
+            printf("\n\t\tEmployer added\n\n");
+            if (p == 1)
+            {
+                printf("\t\tpress 1 for admin menu");
+                scanf("%d", &w);
+                ainterface();
+            }
+            if (p == 2)
+            {
+                printf("\t\tpress 1 for manager menu");
+                scanf("%d", &w);
+                minterface();
+            }
+        }
+        else if (ch == 2)
+        {
+            clrscr();
+            printf("\t\t2.Delete Employee\n\n");
+            char temp[] = "/storage/emulated/0/EMS/modified.txt", c;
+            copy = fopen(temp, "w");
+            printf("\t\tenter employer id :  ");
+            scanf("%s", id);
+            do
+            {
+                fgets(add, 6, employee_p);
+                if (strcmp(add, id) == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    fputs(add, copy);
+                }
+                if (feof(employee_p))
+                {
+                    break;
+                }
+
+            } while (i == 1);
+            fclose(employee_p);
+            remove("/storage/emulated/0/EMS/admin.txt");
+            rename("/storage/emulated/0/EMS/modified.txt", "/storage/emulated/0/EMS/admin.txt");
+            
+            printf("\n\t\tdeleted successfully\n\n");
+            if (p == 1)
+            {
+                printf("\t\tpress 1 for admin menu");
+                scanf("%d", &w);
+                ainterface();
+            }
+            if (p == 2)
+            {
+                printf("\t\tpress 1 for manager menu");
+                scanf("%d", &w);
+                minterface();
+            }
+        }
+    }
+    else
+    {
+        printf("\t\tinvalid character");
+        scanf("%d", &w);
+        goto a1;
+    }
+}
+
+void admin_list()
+{
+    FILE *admin_p;
+    char id[6], pw[6], spa[6];
+    int x = 1, i = 1, m = 0, w;
+    admin_p = fopen("/storage/emulated/0/EMS/admin.txt", "r");
+    system("cls");
+    printf("\t-----------------------------------------\n\n");
+    printf("\t\tADMIN    ID's   LIST\n\n");
+    printf("\t------------------------------------------\n\n");
+    printf("\t\tID's\t\tpassword\n");
+    printf("\t------------------------------------------\n");
+
+    while (x == 1)
+    {
+        fgets(id, 6, admin_p);
+        if (i % 3 != 0)
+        {
+            printf("\t\t%s", id);
+            m++;
+            if (m % 2 == 0)
+            {
+                printf("\n");
+                m = 0;
+            }
+        }
+        if (feof(admin_p))
+            break;
+        i++;
+    }
+    fclose(admin_p);
+    printf("\n\n\n\tpress enter to go to admin menu");
+    scanf("%d", &w);
+    ainterface();
+}
+
+void manager_list()
+{
+    FILE *manager_p;
+    char id[6];
+    int x = 1, i = 1, m = 0, w;
+    manager_p = fopen("/storage/emulated/0/EMS/manager.txt", "r");
+    system("cls");
+    printf("\t-----------------------------------------\n\n");
+    printf("\t\tMANAGER    ID's   LIST\n\n");
+    printf("\t------------------------------------------\n\n");
+    printf("\t\tID's\t\tpassword\n");
+    printf("\t------------------------------------------\n");
+
+    while (x == 1)
+    {
+        fgets(id, 6, manager_p);
+        if (i % 3 != 0)
+        {
+            printf("\t\t%s", id);
+            m++;
+            if (m % 2 == 0)
+            {
+                printf("\n");
+                m = 0;
+            }
+        }
+        if (feof(manager_p))
+            break;
+        i++;
+    }
+    fclose(manager_p);
+    if (z == 1)
+    {
+        printf("\n\n\n\tpress 1 for admin menu");
+        scanf("%d", &w);
+        ainterface();
+    }
+    if (z == 2)
+    {
+        printf("\n\n\n\tpress 1 for  manager menu");
+        scanf("%d", &w);
+        minterface();
+    }
+}
+
+void employee_list()
+{
+    FILE *employee_p;
+    char id[6];
+    int x = 1, i = 1, m = 0, w;
+    employee_p = fopen("/storage/emulated/0/EMS/employee.txt", "r");
+    system("cls");
+    printf("\t-----------------------------------------\n\n");
+    printf("\t\tEMPLOYEE    ID's   LIST\n\n");
+    printf("\t------------------------------------------\n");
+    printf("\t\tID's\t\tpassword\n");
+    printf("\t------------------------------------------\n");
+
+    while (x == 1)
+    {
+        fgets(id, 6, employee_p);
+        if (i % 3 != 0)
+        {
+            printf("\t\t%s", id);
+            m++;
+            if (m % 2 == 0)
+            {
+                printf("\n");
+                m = 0;
+            }
+        }
+        if (feof(employee_p))
+            break;
+        i++;
+    }
+    fclose(employee_p);
+    if (z == 1)
+    {
+        printf("\n\n\n\tpress 1 for admin menu");
+        scanf("%d", &w);
+        ainterface();
+    }
+    if (z == 2)
+    {
+        printf("\n\n\n\tpress 1 for manager menu");
+        scanf("%d", &w);
+        minterface();
+    }
+    if (z == 3)
+    {
+        printf("\n\n\n\tpress 1 for employee menu");
+        scanf("%d", &w);
+        einterface();
+    }
+}
